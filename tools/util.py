@@ -14,6 +14,15 @@ def run(args, quiet=False):
     subprocess.check_call(args, env=env)
 
 
+def run_output(args):
+    print " ".join(args)
+    env = os.environ.copy()
+    if os.name == "nt":
+        # Run through shell to make .bat/.cmd files work.
+        args = ["cmd", "/c"] + args
+    return subprocess.check_output(args, env=env)
+
+
 def remove_and_symlink(target, name, target_is_dir=False):
     try:
         # On Windows, directory symlink can only be removed with rmdir().
