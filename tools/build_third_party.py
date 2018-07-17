@@ -9,7 +9,6 @@
 
 import os
 from os.path import join
-import subprocess
 from util import run, remove_and_symlink
 
 root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -27,6 +26,8 @@ remove_and_symlink("v8/third_party/googletest", "googletest")
 remove_and_symlink("v8/third_party/jinja2", "jinja2")
 remove_and_symlink("v8/third_party/llvm-build", "llvm-build")
 remove_and_symlink("v8/third_party/markupsafe", "markupsafe")
-run(["gclient", "sync", "--shallow", "--no-history", "--nohooks"])
-#run(["gclient", "runhooks"])
 run(["yarn"])
+run(["gclient", "sync", "--shallow", "--no-history", "--nohooks"])
+
+# cd third_party
+# find . -type f | grep -v "\.git" | xargs -I% git add -f --no-warn-embedded-repo "%"
